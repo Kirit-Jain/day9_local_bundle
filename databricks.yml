@@ -51,3 +51,5 @@ targets:
     permissions:
       - user_name: kiritjain@cyntexa.com
         level: CAN_MANAGE
+      - service_principal_name: 8c703d27-5157-44d3-a065-72aea5a5c450
+        level: CAN_MANAGE
