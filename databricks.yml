@@ -1,0 +1,53 @@
+# This is a Declarative Automation Bundle definition for day9_local_bundle.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+bundle:
+  name: day9_local_bundle
+  uuid: 049fef90-2b9c-4a7c-b02b-217a9080abe6
+
+include:
+  - resources/*.yml
+
+# Variable declarations. These variables are assigned in the dev/staging/prod targets below.
+variables:
+  catalog:
+    description: The catalog to use
+  schema:
+    description: The schema to use
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://dbc-10cbba64-cd14.cloud.databricks.com
+    variables:
+      catalog: dev
+      schema: dev
+
+  staging:
+    mode: production
+    workspace:
+      host: https://dbc-10cbba64-cd14.cloud.databricks.com
+      root_path: /Workspace/Users/kiritjain@cyntexa.com/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      catalog: cyntexa_staging
+      schema: staging
+    run_as:
+      service_principal_name: 8c703d27-5157-44d3-a065-72aea5a5c450
+    permissions:
+      - service_principal_name: 8c703d27-5157-44d3-a065-72aea5a5c450
+        level: CAN_MANAGE
+      - user_name: kiritjain@cyntexa.com
+        level: CAN_MANAGE
+
+  prod:
+    mode: production
+    workspace:
+      host: https://dbc-10cbba64-cd14.cloud.databricks.com
+      root_path: /Workspace/Users/kiritjain@cyntexa.com/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      catalog: prod
+      schema: prod
+    permissions:
+      - user_name: kiritjain@cyntexa.com
+        level: CAN_MANAGE

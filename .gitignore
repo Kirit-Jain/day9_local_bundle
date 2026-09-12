@@ -1,0 +1,17 @@
+.databricks/
+build/
+dist/
+__pycache__/
+*.egg-info
+.venv/
+scratch/**
+!scratch/README.md
+**/explorations/**
+**/!explorations/README.md
+
+@'
+.databricks/
+__pycache__/
+*.pyc
+grant_catalog.json
+'@ | Out-File -Encoding ascii .gitignore
